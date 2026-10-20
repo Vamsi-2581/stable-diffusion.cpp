@@ -45,6 +45,10 @@ static void parse_args(int argc,
         exit(svr_params.normal_exit ? 0 : 1);
     }
 
+    if (ctx_params.list_devices) {
+        list_backend_devices_and_exit(ctx_params.rpc_servers);
+    }
+
     log_level = svr_params.log_level;
     log_color = svr_params.color;
 
