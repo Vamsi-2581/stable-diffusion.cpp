@@ -1,4 +1,5 @@
 #include "common.h"
+#include "core/ggml_extend_backend.h"
 
 #include <algorithm>
 #include <cctype>
@@ -357,6 +358,18 @@ bool parse_options(int argc, const char** argv, const std::vector<ArgOptions>& o
     }
 
     return true;
+}
+
+void list_backend_devices_and_exit(const std::string& rpc_servers) {
+    if (!rpc_servers.empty() && !add_rpc_devices(rpc_servers)) {
+        std::exit(EXIT_FAILURE);
+    }
+
+    size_t device_list_size = sd_list_devices(nullptr, 0);
+    std::vector<char> devices(device_list_size + 1);
+    sd_list_devices(devices.data(), devices.size());
+    fputs(devices.data(), stdout);
+    std::exit(EXIT_SUCCESS);
 }
 
 static int parse_scale_override(int argc, const char** argv, int index, float& scale) {
@@ -823,12 +836,8 @@ ArgOptions SDContextParams::get_options() {
          "--list-devices",
          "list available ggml backend devices (one 'name<TAB>description' per line) and exit; "
          "the names are the device names accepted by --backend and --params-backend",
-         [](int /*argc*/, const char** /*argv*/, int /*index*/) {
-             size_t device_list_size = sd_list_devices(nullptr, 0);
-             std::vector<char> devices(device_list_size + 1);
-             sd_list_devices(devices.data(), devices.size());
-             fputs(devices.data(), stdout);
-             std::exit(0);
+         [this](int /*argc*/, const char** /*argv*/, int /*index*/) {
+             list_devices = true;
              return 0;
          }},
     };
