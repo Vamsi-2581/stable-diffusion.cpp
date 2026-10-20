@@ -113,6 +113,7 @@ struct ArgOptions {
 
 void add_log_options(ArgOptions& options, sd_log_level_t& level);
 bool parse_options(int argc, const char** argv, const std::vector<ArgOptions>& options_list);
+void list_backend_devices_and_exit(const std::string& rpc_servers);
 bool decode_base64_image(const std::string& encoded_input,
                          int target_channels,
                          int expected_width,
@@ -168,6 +169,7 @@ struct SDContextParams {
     std::string model_args;
     bool auto_fit = true;
     std::string rpc_servers;
+    bool list_devices = false;
     std::string effective_backend;
     std::string effective_params_backend;
     bool enable_mmap            = false;
