@@ -131,7 +131,7 @@ If you want to allow connections from other machines on the network:
 
 > **Drivers & Hardware:** Ensure the Server machine has the necessary drivers installed and functional (e.g., Nvidia Drivers for CUDA, Vulkan SDK, or Metal). If no devices are found, the server will simply fallback to CPU usage.
 
-<!-- ### Step B: Check if the client is able to connect to the server and see the available devices
+### Step B: Check if the client is able to connect to the server and see the available devices
 
 We're assuming the server is running on your local machine, and listening on the default port `50052`. If it's running on a different machine, you can replace `localhost` with the IP address of the server.
 
@@ -153,7 +153,7 @@ Name    Description
 CPU     AMD Ryzen 9 5900X 12-Core Processor
 RPC0    localhost:50052
 RPC1    localhost:50052
-``` -->
+```
 
 ### Step B: Run with RPC device
 
